@@ -1,4 +1,4 @@
-import ScreenHandler from "./screens/ScreenHandler";
+import ScreenHandler from "./screen/ScreenHandler";
 
 export default class TownClient {
     private static instance: TownClient;

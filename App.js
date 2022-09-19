@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import TownClient from './src/TownClient';
 
-
 export default class App extends Component {
   constructor(properties) {
     super(properties);

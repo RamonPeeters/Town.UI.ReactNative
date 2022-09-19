@@ -7,6 +7,6 @@ export default class MainScreen extends Component {
             <View>
                 <Text>Main Screen</Text>
             </View>
-        )
+        );
     }
 }
