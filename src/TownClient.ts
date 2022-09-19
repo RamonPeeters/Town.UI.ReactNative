@@ -3,7 +3,7 @@ import ScreenHandler from "./screen/ScreenHandler";
 export default class TownClient {
     private static instance: TownClient;
 
-    private readonly screenHandler: ScreenHandler = new ScreenHandler();
+    private readonly screenHandler: ScreenHandler = new ScreenHandler(this);
 
     public constructor() {
         TownClient.instance = this;

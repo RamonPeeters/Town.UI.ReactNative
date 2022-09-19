@@ -1,7 +1,8 @@
-import React, { Component, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { Text, View } from "react-native";
+import Screen from "./Screen";
 
-export default class MainScreen extends Component {
+export default class MainScreen extends Screen {
     public render(): ReactNode {
         return (
             <View>
