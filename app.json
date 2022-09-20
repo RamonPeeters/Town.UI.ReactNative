@@ -1,4 +1,5 @@
 {
   "name": "TownUIReactNative",
-  "displayName": "TownUIReactNative"
+  "displayName": "TownUIReactNative",
+  "serverAddress": "ws://localhost:5140/game"
 }
