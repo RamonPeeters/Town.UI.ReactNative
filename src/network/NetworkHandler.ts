@@ -1,4 +1,10 @@
-export default class NetworkHandler {
+import BinaryReader from "./BinaryReader";
+import NetworkListener from "./NetworkListener";
+import JoinLobbyPacket from "./packet/JoinLobbyPacket";
+import Packet from "./Packet";
+import Packets from "./Packets";
+
+export default class NetworkHandler implements NetworkListener {
     private readonly connection: WebSocket;
 
     private constructor(connection: WebSocket) {
@@ -9,6 +15,8 @@ export default class NetworkHandler {
         this.connection.onerror = this.onError.bind(this);
         this.connection.onclose = this.onClose.bind(this);
     }
+
+    public onJoinLobby(packet: JoinLobbyPacket): void {}
 
     public disconnect(): void {
         console.log(`Disconnecting from ${this.connection.url}`);
@@ -21,6 +29,8 @@ export default class NetworkHandler {
 
     private onMessage(e: MessageEvent<ArrayBuffer>): void {
         console.log("Received message");
+        let reader: BinaryReader = new BinaryReader(e.data);
+        this.handle(reader);
     }
 
     private onError(e: Event): void {
@@ -34,5 +44,11 @@ export default class NetworkHandler {
     public static connect(address: string): NetworkHandler {
         console.log(`Connecting to ${address}`);
         return new NetworkHandler(new WebSocket(address));
+    }
+
+    private handle(reader: BinaryReader): void {
+        let packet: Packet = Packets.createPacket(reader.readInt());
+        packet.read(reader);
+        packet.apply(this);
     }
 }
