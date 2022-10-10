@@ -159,6 +159,10 @@ android {
                 }
             }
         }
+
+        manifestPlaceholders = [
+            appAuthRedirectScheme: "com.googleusercontent.apps.585499288741-p7gh6j7d3gl5can4cdmh2k03elmrvs4i"
+        ]
     }
 
     if (isNewArchitectureEnabled()) {

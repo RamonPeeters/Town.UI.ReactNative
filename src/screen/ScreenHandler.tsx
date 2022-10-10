@@ -1,9 +1,11 @@
 import React, { ReactNode } from "react";
+import Action from "../event/Action";
+import ActionListener from "../event/ActionListener";
 import TownClient from "../TownClient";
 import MainScreen from "./MainScreen";
 
 export default class ScreenHandler {
-    private onScreenUpdate: EventTarget = new EventTarget();
+    private readonly onScreenUpdate: ActionListener = new ActionListener();
     private screen: ReactNode;
 
     public constructor(client: TownClient) {
@@ -16,10 +18,10 @@ export default class ScreenHandler {
 
     public setScreen(screen: ReactNode) {
         this.screen = screen;
-        this.onScreenUpdate.dispatchEvent(new Event(""));
+        this.onScreenUpdate.invoke();
     }
 
-    public addUpdateListener(listener: EventListenerOrEventListenerObject | null): void {
-        this.onScreenUpdate.addEventListener("", listener);
+    public addUpdateListener(listener: Action): void {
+        this.onScreenUpdate.addListener(listener);
     }
 }
