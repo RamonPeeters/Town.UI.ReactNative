@@ -8,7 +8,7 @@ export default class TownClient {
 
     private readonly screenHandler: ScreenHandler = new ScreenHandler(this);
     private networkHandler: NetworkHandler;
-    private authentication: AuthorizeResult;
+    private authorisation: AuthorizeResult;
 
     public constructor() {
         TownClient.instance = this;
@@ -18,8 +18,8 @@ export default class TownClient {
         return TownClient.instance;
     }
 
-    public setAuthentication(authentication: AuthorizeResult): void {
-        this.authentication = authentication;
+    public setAuthentication(authorisation: AuthorizeResult): void {
+        this.authorisation = authorisation;
     }
 
     public getScreenHandler(): ScreenHandler {
@@ -32,16 +32,16 @@ export default class TownClient {
 
     public connect(): void {
         this.disconnect();
-        this.networkHandler = NetworkHandler.connect(this.createAuthenticationUrl());
+        this.networkHandler = NetworkHandler.connect(this.createAuthorisationUrl());
     }
 
-    private createAuthenticationUrl(): string {
-        if (this.authentication == null) {
+    private createAuthorisationUrl(): string {
+        if (this.authorisation == null) {
             throw new Error("Unable to create authentication URL");
         }
         
         let params: URLSearchParams = new URLSearchParams();
-        params.append("access_token", this.authentication.accessToken);
+        params.append("token", this.authorisation.accessToken);
         return AppData.serverAddress + "?" + params.toString();
     }
 
